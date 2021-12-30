@@ -4,7 +4,6 @@ using RemoteFileStorage.ViewModels;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace RemoteFileStorage
 {
@@ -36,12 +35,14 @@ namespace RemoteFileStorage
             {
                 Filter = "Image Files (JPEG,JPG,TIFF,PNG,SVG,GIF)| *.JPEG;*.PNG;*.JPG;*.TIFF;*.SVG;*.GIF"
             };
+            string ext = string.Empty;
             if (openFileDialog.ShowDialog() == true)
             {
-                string ext = Path.GetExtension(openFileDialog.FileName);
+                 ext = Path.GetExtension(openFileDialog.FileName);
                 await itemsViewModel.UploadAsync(openFileDialog.FileName,ext);
             }
-            CbDirectories.Text = itemsViewModel.Directory;
+            CbDirectories.Text = itemsViewModel.Directory = ext;
+
         }
 
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)
